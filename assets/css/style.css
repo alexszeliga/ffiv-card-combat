@@ -1,0 +1,78 @@
+/* clearfix */
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* below are the main layout classes */
+
+.main-body {
+    width:100%;
+    height:100%;
+    background-color:blue;
+    padding: 20px;
+}
+
+.your-char-box {
+
+}
+
+.your-char-lbl {
+
+}
+
+.enemy-char-box {
+
+}
+
+.enemy-char-lbl {
+
+}
+
+.figh-lbl {
+
+}
+
+.your-box {
+
+}
+
+.dfndr-char-lbl {
+
+}
+.dfndr-char-box {
+
+}
+
+.restart-box {
+
+}
+
+/* below are the game element classes */
+
+.char-card {
+    float: left;
+    width:175px;
+    height:125px;
+    border: 5px solid grey;
+    padding: 20px;
+}
+
+.char-card-img {
+    width:175px;
+    height: 100px;
+}
+
+.char-card-hp {
+    padding-top: 8px;
+    float:right;
+    display:block
+}
+
+.char-card-label {
+    padding-top: 8px;
+    float:left;
+    display:block;
+}

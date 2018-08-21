@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- jQuery import -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- CSS reset -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- Import main CSS stylesheet -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+    <!--
+    Basic structure:
+    Main body div: 100% x 100%, will hold background image
+    the body is split into two main columns, one for the game, 
+    one for the title card.
+
+    Title card hangs over the negative space on right side of page
+
+    the game body lives in the negative space of the background image
+
+    the game body has the following divs:
+        -Your character: starts populated with all chars
+        -your char label: label that says "Your Character"
+        -Enemies available: populates with non-selected characters
+        -enemy label: label that says "Enemies Available to Attack"
+        -fight control label: label that says "Fight Section"
+        -fight control:The attack button
+        -defender label: label that says "Defender"
+        -Defender: user selected enemy card
+        -Restart button: default hidden.
+-->
+    <div class="main-body">
+        <div class="game-col">
+            <div class="your-char-box clearfix"></div>
+            <div class="your-char-lbl">
+                <h1>Your Character</h1>
+            </div>
+            <div class="enemy-char-box"></div>
+            <div class="enemy-char-lbl">
+                <h1>Enemies Abailable to Attack</h1>
+            </div>
+            <div class="figh-lbl">
+                <h1>Fight Section</h1>
+                <button id="fight-button">Fight</button>
+            </div>
+            <div class="your-box"></div>
+            <div class="dfndr-char-lbl">
+                <h1>Defender</h1>
+            </div>
+            <div class="dfndr-char-box"></div>
+            <div class="restart-box"></div>
+        </div>
+        <div class="right-side-col">
+            <div class="title-lbl">
+                <h1>Final Fantasy IV (Card) Tactics</h1>
+
+            </div>
+        </div>
+    </div>
+    <script src="assets/javascript/game.js"></script>
+</body>
+
+</html>
