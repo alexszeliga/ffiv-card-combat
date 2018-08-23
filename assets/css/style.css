@@ -1,3 +1,7 @@
+/* google font */
+
+@import url('https://fonts.googleapis.com/css?family=Volkhov');
+
 /* clearfix */
 
 .clearfix::after {
@@ -18,36 +22,37 @@
     color: white;
 }
 
-.your-char-box {
-
-}
-
 .your-char-lbl {
     clear: left;
+    margin-top:10px
+}
+
+.title-lbl {
+    display: block;
+    float: left;
 }
 
 .enemy-char-box {
-
+    height:175px;
 }
 
 .enemy-char-lbl {
     clear: left;
+    margin-top:10px;
 }
 
 .figh-lbl {
     clear: left;
-}
-
-.your-box {
-
+    margin-top:10px;
 }
 
 .dfndr-char-lbl {
     clear: left;
+    margin-top:10px;
 
 }
 .dfndr-char-box {
-
+    height:175px;
 }
 
 .restart-box {
@@ -55,14 +60,13 @@
     display:none;
 }
 .game-col {
-    width:60%;
+    width:930px;
     float:left;
     padding: 20px;
 }
 
 .right-side-col {
-    width:35%;
-    float:right;
+    width:auto;
     padding: 20px;
 }
 
@@ -74,6 +78,7 @@
     height:125px;
     border: 5px solid grey;
     padding: 20px;
+    margin-right:5px;
     background-color:blue;
 }
 
@@ -100,4 +105,24 @@
 
 .defender-card {
     background-color: black;
+}
+
+#fight-button {
+    margin-top:10px;
+}
+
+/* styling for fonts */
+
+
+h2,h5 {
+    font-family: 'Volkhov', serif;
+    letter-spacing: -1px;  
+}
+
+h2 {
+    font-size:2em;
+}
+
+h3 {
+    font-size:1.1em;
 }
