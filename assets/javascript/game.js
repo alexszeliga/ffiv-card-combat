@@ -11,7 +11,6 @@
 // each character is a an object ref'd as charObj in functions
 // which they will be passed to.
 var game = {
-    playerCharSelected: false,
     // game state will control where we are in the logic
     state: 0,
     cecil: {
@@ -21,8 +20,7 @@ var game = {
         ap: 8,
         cp: 15,
         img: "assets/images/cecil.jpg",
-        usrChar: false,
-        isAlive: true,
+
     },
 
     rydia: {
@@ -32,8 +30,7 @@ var game = {
         ap: 8,
         cp: 5,
         img: "assets/images/rydia.jpg",
-        usrChar: false,
-        isAlive: true,
+
     },
 
     tellah: {
@@ -43,8 +40,7 @@ var game = {
         ap: 8,
         cp: 20,
         img: "assets/images/tellah.jpg",
-        usrChar: false,
-        isAlive: true,
+
     },
 
     edge: {
@@ -54,8 +50,7 @@ var game = {
         ap: 8,
         cp: 25,
         img: "assets/images/edge.jpg",
-        usrChar: false,
-        isAlive: true,
+
     },
 
 }
@@ -134,7 +129,6 @@ $(".char-card").on("click", function () {
                 case "Rydia":
                     // rydia's case
                     console.log("You clicked Rydia");
-                    game.rydia.usrChar = true;
                     heroChar = game.rydia;
                     pageElements.enemyBox.append(cecilCard);
                     cecilCard.addClass("enemy-card");
@@ -146,7 +140,6 @@ $(".char-card").on("click", function () {
                 case "Tellah":
                     // tellah's case
                     console.log("You clicked Tellah");
-                    game.tellah.usrChar = true;
                     heroChar = game.tellah;
                     pageElements.enemyBox.append(cecilCard);
                     cecilCard.addClass("enemy-card");
@@ -158,7 +151,6 @@ $(".char-card").on("click", function () {
                 case "Cecil":
                     // cecil's case
                     console.log("You clicked Cecil");
-                    game.cecil.usrChar = true;
                     heroChar = game.cecil;
                     pageElements.enemyBox.append(edgeCard);
                     edgeCard.addClass("enemy-card");
@@ -173,17 +165,23 @@ $(".char-card").on("click", function () {
             break
         // userChar flag is set
         case 1:
-            // isolate enemy clicks
-            if ($(this).hasClass("enemy-card")) {
-                // set clicked enemy as defender:
-                $(this).addClass("defender-card");
-                pageElements.defenderBox.append($(this));
-                var clickedCardID = $(this).attr("id").toLowerCase();
-                currentDefender = game[clickedCardID];
-                game.state = 2;
-
+            // are there any enemies left?
+            if (pageElements.enemyBox.find(".enemy-card").length = 0) {
+                console.log("game over you win!");
+                // TODO: reset button
+                // TODO: reset variables
             } else {
-                console.log("Please click an enemy card");
+                // isolate enemy clicks
+                if ($(this).hasClass("enemy-card")) {
+                    // set clicked enemy as defender:
+                    $(this).addClass("defender-card");
+                    pageElements.defenderBox.append($(this));
+                    var clickedCardID = $(this).attr("id").toLowerCase();
+                    currentDefender = game[clickedCardID];
+                    game.state = 2;
+                } else {
+                    console.log("Please click an enemy card");
+                }
             }
             break
         case 2:
@@ -216,6 +214,7 @@ $("#fight-button").on("click", function () {
             // Kill defender
             pageElements.defenderBox.empty();
             console.log("defender died")
+            console.log(pageElements.enemyBox.find(".enemy-card"));
             game.state = 1;
         }
     } else {
