@@ -10,7 +10,7 @@
 
 .main-body {
     width:100%;
-    height:100%;
+    height:100vh;
     background-color:black;
     background-image: url("../images/cecil-bgr.jpg");
     background-repeat: no-repeat;
@@ -51,7 +51,8 @@
 }
 
 .restart-box {
-
+    clear: left;
+    display:none;
 }
 .game-col {
     width:60%;

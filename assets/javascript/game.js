@@ -106,7 +106,7 @@ pageElements.charBox.prepend(tellahCard);
 
 
 
-$(".char-card").on("click", function () {
+$(document).on("click",".char-card", function () {
     console.log("game.state = " + game.state)
     // TODO use state flag: character selected? defender selected? fighters remain?
     switch (game.state) {
@@ -117,7 +117,6 @@ $(".char-card").on("click", function () {
                 case "Edge":
                     // edge's case
                     console.log("You clicked Edge");
-                    game.edge.usrChar = true;
                     heroChar = game.edge;
                     pageElements.enemyBox.append(cecilCard);
                     cecilCard.addClass("enemy-card");
@@ -165,24 +164,17 @@ $(".char-card").on("click", function () {
             break
         // userChar flag is set
         case 1:
-            // are there any enemies left?
-            if (pageElements.enemyBox.find(".enemy-card").length = 0) {
-                console.log("game over you win!");
-                // TODO: reset button
-                // TODO: reset variables
+            if ($(this).hasClass("enemy-card")) {
+                // set clicked enemy as defender:
+                $(this).addClass("defender-card");
+                pageElements.defenderBox.append($(this));
+                var clickedCardID = $(this).attr("id").toLowerCase();
+                currentDefender = game[clickedCardID];
+                game.state = 2;
             } else {
-                // isolate enemy clicks
-                if ($(this).hasClass("enemy-card")) {
-                    // set clicked enemy as defender:
-                    $(this).addClass("defender-card");
-                    pageElements.defenderBox.append($(this));
-                    var clickedCardID = $(this).attr("id").toLowerCase();
-                    currentDefender = game[clickedCardID];
-                    game.state = 2;
-                } else {
-                    console.log("Please click an enemy card");
-                }
+                console.log("Please click an enemy card");
             }
+
             break
         case 2:
             // clicking on a character card here should do nothing,
@@ -196,28 +188,69 @@ $(".char-card").on("click", function () {
 // fight button click handler
 $("#fight-button").on("click", function () {
     // if there is a defender and a hero 
-    if (game.state = 2) {
+    if (game.state === 2) {
         // subtract hero ap from defender hp
         currentDefender.hp = currentDefender.hp - heroChar.ap;
-        // TODO: increase hero ap by apBase
+        // update defender HP on page
+        pageElements.defenderBox.find(".char-card-hp").text("HP: " + currentDefender.hp);
+        // increase hero ap by apBase
         heroChar.ap = heroChar.ap + heroChar.apBase;
-        // TODO: confirm defender is alive
+        // confirm defender is alive
         if (currentDefender.hp > 0) {
-            // TODO: subtract defender cp from hero hp
+            // subtract defender cp from hero hp
+            heroChar.hp = heroChar.hp - currentDefender.cp;
+            // update character HP, only if there's a counter.
+            pageElements.charBox.find(".char-card-hp").text("HP: " + heroChar.hp);
+            if (heroChar.hp < 1) {
+                console.log("game over you lose");
+                pageElements.restartBox.css("display", "block");
+                game.state = 3;
+            }
             console.log(heroChar.name + " HP: " + heroChar.hp);
             console.log("Hero AP: " + heroChar.ap);
             console.log(currentDefender.name + " HP: " + currentDefender.hp);
-
-            heroChar.hp = heroChar.hp - currentDefender.cp;
-
         } else {
             // Kill defender
             pageElements.defenderBox.empty();
             console.log("defender died")
-            console.log(pageElements.enemyBox.find(".enemy-card"));
-            game.state = 1;
+            if (pageElements.enemyBox.find(".enemy-card").length === 0) {
+                console.log("game over you win!");
+                pageElements.restartBox.css("display", "block");
+                game.state = 3;
+            } else {
+                game.state = 1;
+            }
         }
     } else {
         return;
     }
+});
+
+$("#restart-button").on("click", function () {
+    console.log("you clicked restart");
+    // Kill all char-cards
+    pageElements.charBox.empty();
+    pageElements.enemyBox.empty();
+    pageElements.defenderBox.empty();
+    // Reset all char vars
+    game[heroChar.name.toLowerCase()].ap = game[heroChar.name.toLowerCase()].apBase;
+    console.log(game[heroChar.name.toLowerCase()].name +"'s AP is now " + game[heroChar.name.toLowerCase()].ap);
+    game.edge.hp = 190;
+    game.rydia.hp = 100;
+    game.tellah.hp = 150;
+    game.cecil.hp = 120;
+    // repop cards
+    cecilCard = fighterCard(game.cecil);
+    edgeCard = fighterCard(game.edge);
+    rydiaCard = fighterCard(game.rydia);
+    tellahCard = fighterCard(game.tellah);
+    // place in dom
+    pageElements.charBox.prepend(cecilCard);
+    pageElements.charBox.prepend(edgeCard);
+    pageElements.charBox.prepend(rydiaCard);
+    pageElements.charBox.prepend(tellahCard);
+    // set game logic to init state
+    game.state=0;
+    // hide restart button
+    pageElements.restartBox.css("display", "none");
 });
