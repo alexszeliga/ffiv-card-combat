@@ -17,8 +17,9 @@ var game = {
     cecil: {
         name: "Cecil",
         hp: 120,
+        apBase: 8,
         ap: 8,
-        cp: undefined,
+        cp: 15,
         img: "assets/images/cecil.jpg",
         usrChar: false,
         isAlive: true,
@@ -27,7 +28,8 @@ var game = {
     rydia: {
         name: "Rydia",
         hp: 100,
-        ap: undefined,
+        apBase: 8,
+        ap: 8,
         cp: 5,
         img: "assets/images/rydia.jpg",
         usrChar: false,
@@ -37,6 +39,7 @@ var game = {
     tellah: {
         name: "Tellah",
         hp: 150,
+        apBase: 8,
         ap: 8,
         cp: 20,
         img: "assets/images/tellah.jpg",
@@ -47,7 +50,8 @@ var game = {
     edge: {
         name: "Edge",
         hp: 190,
-        ap: undefined,
+        apBase: 8,
+        ap: 8,
         cp: 25,
         img: "assets/images/edge.jpg",
         usrChar: false,
@@ -119,7 +123,7 @@ $(".char-card").on("click", function () {
                     // edge's case
                     console.log("You clicked Edge");
                     game.edge.usrChar = true;
-                    heroChar - game.edge;
+                    heroChar = game.edge;
                     pageElements.enemyBox.append(cecilCard);
                     cecilCard.addClass("enemy-card");
                     pageElements.enemyBox.append(rydiaCard);
@@ -185,8 +189,36 @@ $(".char-card").on("click", function () {
         case 2:
             // clicking on a character card here should do nothing,
             // this is where the fighting happens, so look in the 
-            // fight click-handler
+            // fight button click handler
             break
     }
     console.log("game.state = " + game.state)
+});
+
+// fight button click handler
+$("#fight-button").on("click", function () {
+    // if there is a defender and a hero 
+    if (game.state = 2) {
+        // subtract hero ap from defender hp
+        currentDefender.hp = currentDefender.hp - heroChar.ap;
+        // TODO: increase hero ap by apBase
+        heroChar.ap = heroChar.ap + heroChar.apBase;
+        // TODO: confirm defender is alive
+        if (currentDefender.hp > 0) {
+            // TODO: subtract defender cp from hero hp
+            console.log(heroChar.name + " HP: " + heroChar.hp);
+            console.log("Hero AP: " + heroChar.ap);
+            console.log(currentDefender.name + " HP: " + currentDefender.hp);
+
+            heroChar.hp = heroChar.hp - currentDefender.cp;
+
+        } else {
+            // Kill defender
+            pageElements.defenderBox.empty();
+            console.log("defender died")
+            game.state = 1;
+        }
+    } else {
+        return;
+    }
 });

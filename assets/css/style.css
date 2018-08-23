@@ -73,6 +73,7 @@
     height:125px;
     border: 5px solid grey;
     padding: 20px;
+    background-color:blue;
 }
 
 .char-card-img {
@@ -94,4 +95,8 @@
 
 .enemy-card {
     background-color: red;
+}
+
+.defender-card {
+    background-color: black;
 }
