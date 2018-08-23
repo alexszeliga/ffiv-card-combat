@@ -93,6 +93,13 @@ var edgeCard = fighterCard(game.edge)
 var rydiaCard = fighterCard(game.rydia)
 var tellahCard = fighterCard(game.tellah)
 
+// global variables for the user's character (heroChar) and currentDefender
+
+var heroChar;
+var currentDefender;
+
+// generate game cards;
+
 pageElements.charBox.prepend(cecilCard);
 pageElements.charBox.prepend(edgeCard);
 pageElements.charBox.prepend(rydiaCard);
@@ -112,6 +119,7 @@ $(".char-card").on("click", function () {
                     // edge's case
                     console.log("You clicked Edge");
                     game.edge.usrChar = true;
+                    heroChar - game.edge;
                     pageElements.enemyBox.append(cecilCard);
                     cecilCard.addClass("enemy-card");
                     pageElements.enemyBox.append(rydiaCard);
@@ -123,6 +131,7 @@ $(".char-card").on("click", function () {
                     // rydia's case
                     console.log("You clicked Rydia");
                     game.rydia.usrChar = true;
+                    heroChar = game.rydia;
                     pageElements.enemyBox.append(cecilCard);
                     cecilCard.addClass("enemy-card");
                     pageElements.enemyBox.append(edgeCard);
@@ -134,6 +143,7 @@ $(".char-card").on("click", function () {
                     // tellah's case
                     console.log("You clicked Tellah");
                     game.tellah.usrChar = true;
+                    heroChar = game.tellah;
                     pageElements.enemyBox.append(cecilCard);
                     cecilCard.addClass("enemy-card");
                     pageElements.enemyBox.append(edgeCard);
@@ -145,6 +155,7 @@ $(".char-card").on("click", function () {
                     // cecil's case
                     console.log("You clicked Cecil");
                     game.cecil.usrChar = true;
+                    heroChar = game.cecil;
                     pageElements.enemyBox.append(edgeCard);
                     edgeCard.addClass("enemy-card");
                     pageElements.enemyBox.append(rydiaCard);
@@ -160,38 +171,22 @@ $(".char-card").on("click", function () {
         case 1:
             // isolate enemy clicks
             if ($(this).hasClass("enemy-card")) {
+                // set clicked enemy as defender:
                 $(this).addClass("defender-card");
                 pageElements.defenderBox.append($(this));
-                
+                var clickedCardID = $(this).attr("id").toLowerCase();
+                game.state = 2;
+                currentDefender = game[clickedCardID];
+                console.log(currentDefender);
             } else {
                 console.log("Please click an enemy card");
             }
-            game.state = 2;
-            // TODO: enemy select
             break
         case 2:
-            // fighting happens here
-            // TODO: 
+            // clicking on a character card here should do nothing,
+            // this is where the fighting happens, so look in the 
+            // fight click-handler
             break
     }
-    // character cases
-    // switch ($(this).attr("id")) {
-    //     case "Edge":
-    //         // edge's case
-    //         console.log("You clicked Edge");
-    //         break
-    //     case "Rydia":
-    //         // rydia's case
-    //         console.log("You clicked Rydia");
-    //         break
-    //     case "Tellah":
-    //         // tellah's case
-    //         console.log("You clicked Tellah");
-    //         break
-    //     case "Cecil":
-    //         // cecil's case
-    //         console.log("You clicked Cecil");
-    //         break
-    // }
     console.log("game.state = " + game.state)
 });
