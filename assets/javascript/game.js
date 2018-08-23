@@ -101,6 +101,7 @@ pageElements.charBox.prepend(tellahCard);
 
 
 $(".char-card").on("click", function () {
+    console.log("game.state = " + game.state)
     // TODO use state flag: character selected? defender selected? fighters remain?
     switch (game.state) {
         // nothing has happened yet: 0 is default state
@@ -157,6 +158,15 @@ $(".char-card").on("click", function () {
             break
         // userChar flag is set
         case 1:
+            // isolate enemy clicks
+            if ($(this).hasClass("enemy-card")) {
+                $(this).addClass("defender-card");
+                pageElements.defenderBox.append($(this));
+                
+            } else {
+                console.log("Please click an enemy card");
+            }
+            game.state = 2;
             // TODO: enemy select
             break
         case 2:
@@ -165,22 +175,23 @@ $(".char-card").on("click", function () {
             break
     }
     // character cases
-    switch ($(this).attr("id")) {
-        case "Edge":
-            // edge's case
-            console.log("You clicked Edge");
-            break
-        case "Rydia":
-            // rydia's case
-            console.log("You clicked Rydia");
-            break
-        case "Tellah":
-            // tellah's case
-            console.log("You clicked Tellah");
-            break
-        case "Cecil":
-            // cecil's case
-            console.log("You clicked Cecil");
-            break
-    }
+    // switch ($(this).attr("id")) {
+    //     case "Edge":
+    //         // edge's case
+    //         console.log("You clicked Edge");
+    //         break
+    //     case "Rydia":
+    //         // rydia's case
+    //         console.log("You clicked Rydia");
+    //         break
+    //     case "Tellah":
+    //         // tellah's case
+    //         console.log("You clicked Tellah");
+    //         break
+    //     case "Cecil":
+    //         // cecil's case
+    //         console.log("You clicked Cecil");
+    //         break
+    // }
+    console.log("game.state = " + game.state)
 });
