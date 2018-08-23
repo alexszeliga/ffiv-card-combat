@@ -175,9 +175,9 @@ $(".char-card").on("click", function () {
                 $(this).addClass("defender-card");
                 pageElements.defenderBox.append($(this));
                 var clickedCardID = $(this).attr("id").toLowerCase();
-                game.state = 2;
                 currentDefender = game[clickedCardID];
-                console.log(currentDefender);
+                game.state = 2;
+
             } else {
                 console.log("Please click an enemy card");
             }
