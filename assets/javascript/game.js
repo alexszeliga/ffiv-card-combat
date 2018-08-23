@@ -10,7 +10,10 @@
 
 // each character is a an object ref'd as charObj in functions
 // which they will be passed to.
-var chars = {
+var game = {
+    playerCharSelected: false,
+    // game state will control where we are in the logic
+    state: 0,
     cecil: {
         name: "Cecil",
         hp: 120,
@@ -73,10 +76,10 @@ function fighterCard(charObj) {
     // creates a game card that has a pic, name, and hp display
     // styled and layed out in class "char-card"\
     // todo: add pic, add HP
-    var card = $("<div class='char-card' id='" + charObj.name +"'>");
+    var card = $("<div class='char-card' id='" + charObj.name + "'>");
     var nameLabel = $("<h5 class='char-card-label'>" + charObj.name + "</h5>");
-    var image = $("<img src="+charObj.img+" class='char-card-img'/>");
-    var hp = $("<h5 class='char-card-hp'>HP: "+charObj.hp+"</h5>")
+    var image = $("<img src=" + charObj.img + " class='char-card-img'/>");
+    var hp = $("<h5 class='char-card-hp'>HP: " + charObj.hp + "</h5>")
     card.append(image);
     card.append(nameLabel);
     card.append(hp);
@@ -85,30 +88,99 @@ function fighterCard(charObj) {
 
 // these are going to be global variables for the characters game cards
 
+var cecilCard = fighterCard(game.cecil)
+var edgeCard = fighterCard(game.edge)
+var rydiaCard = fighterCard(game.rydia)
+var tellahCard = fighterCard(game.tellah)
+
+pageElements.charBox.prepend(cecilCard);
+pageElements.charBox.prepend(edgeCard);
+pageElements.charBox.prepend(rydiaCard);
+pageElements.charBox.prepend(tellahCard);
 
 
-pageElements.charBox.prepend(fighterCard(chars.edge));
-pageElements.charBox.prepend(fighterCard(chars.cecil));
-pageElements.charBox.prepend(fighterCard(chars.rydia));
-pageElements.charBox.prepend(fighterCard(chars.tellah));
 
 $(".char-card").on("click", function () {
-switch ($(this).attr("id")) {
-    case "Edge":
-    // edge's case
-    console.log("You clicked Edge");
-    break
-    case "Rydia":
-    // rydia's case
-    console.log("You clicked Rydia");
-    break
-    case "Tellah":
-    // tellah's case
-    console.log("You clicked Tellah");
-    break
-    case "Cecil":
-    // cecil's case
-    console.log("You clicked Cecil");
-    break
-}
+    // TODO use state flag: character selected? defender selected? fighters remain?
+    switch (game.state) {
+        // nothing has happened yet: 0 is default state
+        case 0:
+            // change usrChar flag for clicked char
+            switch ($(this).attr("id")) {
+                case "Edge":
+                    // edge's case
+                    console.log("You clicked Edge");
+                    game.edge.usrChar = true;
+                    pageElements.enemyBox.append(cecilCard);
+                    cecilCard.addClass("enemy-card");
+                    pageElements.enemyBox.append(rydiaCard);
+                    rydiaCard.addClass("enemy-card");
+                    pageElements.enemyBox.append(tellahCard);
+                    tellahCard.addClass("enemy-card");
+                    break
+                case "Rydia":
+                    // rydia's case
+                    console.log("You clicked Rydia");
+                    game.rydia.usrChar = true;
+                    pageElements.enemyBox.append(cecilCard);
+                    cecilCard.addClass("enemy-card");
+                    pageElements.enemyBox.append(edgeCard);
+                    edgeCard.addClass("enemy-card");
+                    pageElements.enemyBox.append(tellahCard);
+                    tellahCard.addClass("enemy-card");
+                    break
+                case "Tellah":
+                    // tellah's case
+                    console.log("You clicked Tellah");
+                    game.tellah.usrChar = true;
+                    pageElements.enemyBox.append(cecilCard);
+                    cecilCard.addClass("enemy-card");
+                    pageElements.enemyBox.append(edgeCard);
+                    edgeCard.addClass("enemy-card");
+                    pageElements.enemyBox.append(rydiaCard);
+                    rydiaCard.addClass("enemy-card");
+                    break
+                case "Cecil":
+                    // cecil's case
+                    console.log("You clicked Cecil");
+                    game.cecil.usrChar = true;
+                    pageElements.enemyBox.append(edgeCard);
+                    edgeCard.addClass("enemy-card");
+                    pageElements.enemyBox.append(rydiaCard);
+                    rydiaCard.addClass("enemy-card");
+                    pageElements.enemyBox.append(tellahCard);
+                    tellahCard.addClass("enemy-card");
+                    break
+            }
+            game.state = 1;
+            // TODO: move char chards to appror
+            break
+        // userChar flag is set
+        case 1:
+            // TODO: enemy select
+            break
+        case 2:
+            // fighting happens here
+            // TODO: 
+            break
+    }
+    // character cases
+    switch ($(this).attr("id")) {
+        case "Edge":
+            // edge's case
+            console.log("You clicked Edge");
+            break
+        case "Rydia":
+            // rydia's case
+            console.log("You clicked Rydia");
+            break
+        case "Tellah":
+            // tellah's case
+            console.log("You clicked Tellah");
+            break
+        case "Cecil":
+            // cecil's case
+            console.log("You clicked Cecil");
+            break
+    }
 });
