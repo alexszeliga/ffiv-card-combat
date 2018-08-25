@@ -20,11 +20,12 @@
     background-repeat: no-repeat;
     background-position: top right;
     color: white;
+    overflow:hidden;
 }
 
 .your-char-lbl {
     clear: left;
-    margin-top:10px
+    margin-top:5px
 }
 
 .title-lbl {
@@ -33,36 +34,39 @@
 }
 
 .enemy-char-box {
+    margin-top:5px;
     height:175px;
 }
 
 .enemy-char-lbl {
     clear: left;
-    margin-top:10px;
+    margin-top:5px;
 }
 
 .figh-lbl {
     clear: left;
-    margin-top:10px;
+    margin-top:5px;
 }
 
 .dfndr-char-lbl {
     clear: left;
-    margin-top:10px;
+    margin-top:5px;
 
 }
 .dfndr-char-box {
+    margin-top:5px;
     height:175px;
 }
 
 .restart-box {
+    margin-top:5px;
     clear: left;
     display:none;
 }
 .game-col {
     width:930px;
     float:left;
-    padding: 20px;
+    padding: 5px;
 }
 
 .right-side-col {
@@ -108,7 +112,7 @@
 }
 
 #fight-button {
-    margin-top:10px;
+    margin-top:5px;
 }
 
 /* styling for fonts */
@@ -125,4 +129,13 @@ h2 {
 
 h3 {
     font-size:1.1em;
+}
+
+.hero-message::p {
+    margin-top:5px;
+    display:block;
+}
+
+p {
+    margin-top:5px;
 }

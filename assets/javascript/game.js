@@ -26,8 +26,8 @@ var game = {
     rydia: {
         name: "Rydia",
         hp: 100,
-        apBase: 8,
-        ap: 8,
+        apBase: 15,
+        ap: 15,
         cp: 5,
         img: "assets/images/rydia.jpg",
 
@@ -64,6 +64,8 @@ var pageElements = {
     enemyBox: $(".enemy-char-box"),
     defenderBox: $(".dfndr-char-box"),
     restartBox: $(".restart-box"),
+    heroMessageLabel: $("#hero-message"),
+    defenderMessageLabel: $("#defender-message")
 }
 
 function testOutput() {
@@ -96,7 +98,9 @@ var tellahCard = fighterCard(game.tellah)
 
 var heroChar;
 var currentDefender;
-
+var heroMessage = ""; // the hero's damage (or status) will be 
+// held here --^ as a string to dipsplay on the gameboard
+var defenderMessage = ""; // same-same, for the defender
 // generate game cards;
 
 pageElements.charBox.prepend(cecilCard);
@@ -104,7 +108,8 @@ pageElements.charBox.prepend(edgeCard);
 pageElements.charBox.prepend(rydiaCard);
 pageElements.charBox.prepend(tellahCard);
 
-
+pageElements.heroMessageLabel.text("Click on any hero to select your character!");
+pageElements.defenderMessageLabel.empty();
 
 $(document).on("click",".char-card", function () {
     console.log("game.state = " + game.state)
@@ -191,6 +196,9 @@ $("#fight-button").on("click", function () {
     if (game.state === 2) {
         // subtract hero ap from defender hp
         currentDefender.hp = currentDefender.hp - heroChar.ap;
+
+        // TODO: update defender's satus message and display
+        pageElements.defenderMessageLabel.text("You attacked " + currentDefender.name + " for " + heroChar.ap + " damage!");
         // update defender HP on page
         pageElements.defenderBox.find(".char-card-hp").text("HP: " + currentDefender.hp);
         // increase hero ap by apBase
@@ -199,10 +207,14 @@ $("#fight-button").on("click", function () {
         if (currentDefender.hp > 0) {
             // subtract defender cp from hero hp
             heroChar.hp = heroChar.hp - currentDefender.cp;
+            // TODO: update hero status / hero message and display
+            pageElements.heroMessageLabel.text(currentDefender.name + " attacked you for " + currentDefender.cp + " damage");
             // update character HP, only if there's a counter.
             pageElements.charBox.find(".char-card-hp").text("HP: " + heroChar.hp);
             if (heroChar.hp < 1) {
                 console.log("game over you lose");
+                pageElements.heroMessageLabel.text(heroChar.name + " perished!");
+                pageElements.defenderMessageLabel.text("Click restart to play again!");
                 pageElements.restartBox.css("display", "block");
                 game.state = 3;
             }
@@ -215,6 +227,8 @@ $("#fight-button").on("click", function () {
             console.log("defender died")
             if (pageElements.enemyBox.find(".enemy-card").length === 0) {
                 console.log("game over you win!");
+                pageElements.heroMessageLabel.text("You Win!");
+                pageElements.defenderMessageLabel.text("Click restart to play again!");
                 pageElements.restartBox.css("display", "block");
                 game.state = 3;
             } else {
@@ -228,10 +242,13 @@ $("#fight-button").on("click", function () {
 
 $("#restart-button").on("click", function () {
     console.log("you clicked restart");
+    // TODO: set heroMessage to "Click on any player to select your hero!"
     // Kill all char-cards
     pageElements.charBox.empty();
     pageElements.enemyBox.empty();
     pageElements.defenderBox.empty();
+    pageElements.heroMessageLabel.text("Click on any hero to select your character!");
+    pageElements.defenderMessageLabel.empty();
     // Reset all char vars
     game[heroChar.name.toLowerCase()].ap = game[heroChar.name.toLowerCase()].apBase;
     console.log(game[heroChar.name.toLowerCase()].name +"'s AP is now " + game[heroChar.name.toLowerCase()].ap);
