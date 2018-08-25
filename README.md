@@ -19,22 +19,22 @@ Because this is not an exercise in balancing characters in a card game, I'm goin
 
 HP 120
 AP 8
-CP ???
+CP 15
 
 ### Rydia
 
 HP 100
-AP ???
+AP 15
 CP 5
 
 ### Tellah
 
 HP 150
-AP ???
+AP 8
 CP 20
 
 ### Edge
 
 HP 180
-AP ???
+AP 8
 CP 25
